@@ -1,9 +1,9 @@
 # nodeAPI
 
-Pour demarrer le serveur node : npm start dans le dossier back
-Pour demarrer l'app vue : npm run serve dans le dossier front
+Pour demarrer le serveur node : npm start dans le dossier back<br/>
+Pour demarrer l'app vue : npm run serve dans le dossier front<br/>
 
-Pour tester l'API node avec Oauth 2 : avoir postgres d'installer, entrer les informations de la DB dans back/db/pgWrapper.js .
+Pour tester l'API node avec Oauth 2 : avoir postgres d'installer, entrer les informations de la DB dans back/db/pgWrapper.js .<br/>
 Dans postgres creer les tables 
 
 ```postgres
@@ -37,21 +37,21 @@ WITH (
 ALTER TABLE public.access_tokens
     OWNER to postgres;
 ```
-Pour tester l'API : ```curl -d "client_secret=null" -d "client_id=null" -d "username=test" -d "password=test" -d "grant_type=password" "http://localhost:3000/auth/register"``` 
+Pour tester l'API : ```curl -d "client_secret=null" -d "client_id=null" -d "username=test" -d "password=test" -d "grant_type=password" "http://localhost:3000/auth/register"``` <br/>
 Ou dans Postman,
-à l'adresse http://localhost:3000/auth/register entrer les infos suivantes dans body sous forme x-www-form-urlencoded :
-username : <username>
-password : <pass>
-grant-type : password
-client_id : null
-client_secret : null
-
-Ensuite login l'utilisateur (pose des problemes dans postman): 
-```curl -d "client_secret=null" -d "client_id=null" -d "username=test" -d "password=test" -d "grant_type=password" "http://localhost:3000/auth/login"```
-
+à l'adresse http://localhost:3000/auth/register entrer les infos suivantes dans body sous forme x-www-form-urlencoded :<br/>
+username : <username><br/>
+password : <pass><br/>
+grant-type : password<br/>
+client_id : null<br/>
+client_secret : null<br/>
+<br/>
+Ensuite login l'utilisateur (pose des problemes dans postman):<br/> 
+```curl -d "client_secret=null" -d "client_id=null" -d "username=test" -d "password=test" -d "grant_type=password" "http://localhost:3000/auth/login"```<br/>
+<br/>
 La commande retourne un token.
-
-Tester l'authentification Oauth2 : 
-Retour dans postman, à l'adresse http://localhost:3000/test/hello, aller dans l'onglet autorization, choisir le type Oauth2, puis dans le champ access token rentrer le token obtenu précedemment, envoyer la requete.
-
+<br/>
+Tester l'authentification Oauth2 : <br/>
+Retour dans postman, à l'adresse http://localhost:3000/test/hello, aller dans l'onglet autorization, choisir le type Oauth2, puis dans le champ access token <br/>rentrer le token obtenu précedemment, envoyer la requete.<br/>
+<br/>
 S'affiche dans la console "Hello world Oauth2!", authentification réussie.
