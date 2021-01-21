@@ -7,8 +7,9 @@ const Pool = require("pg").Pool;
 function query(queryString, cbFunc) {
     const pool = new Pool({
         user: "theotime",
-        host: "localhost",
+        host: "127.0.0.1",
         database: "nodeAPIgcloud",
+        password: 'theotime',
         port: 5432,
     });
 

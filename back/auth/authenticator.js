@@ -31,7 +31,9 @@ function registerUser(req, res) {
     });
 }
 
-function login(query, res) {}
+function login(query, res) {
+    
+}
 
 function sendResponse(res, message, error) {
     res.status(error !== undefined ? 400 : 200).json({

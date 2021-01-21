@@ -15,7 +15,7 @@
             </div>
             <div class="cards">
                 <p>Solde</p>
-                <h1>7254 €</h1>
+                <h1>{{ dernierSolde }}</h1>
             </div>
             <div class="cards">
                 <p>Planificateur</p>
@@ -35,6 +35,22 @@ export default {
   name: 'TableauDeBord',
   props: {
     msg: String
+  },
+  data (){
+    return {
+      dernierSolde: null,
+      info: null
+    }
+  },
+  mounted () {
+    this.$http
+      .get('http://localhost:3000/transactions/')
+      .then(response => {
+          console.log(JSON.parse(response.data.message));
+          this.info = JSON.parse(response.data.message).rows
+          this.dernierSolde = this.info.pop().solde
+          
+      })
   }
 }
 </script>
@@ -98,6 +114,5 @@ export default {
         border-radius: 50%;
         
     }
-
     
 </style>

@@ -1,11 +1,11 @@
 <template>
     <div class="left-menu">
         <ul id="nav">
-          <li><a @click="selected = 1" :class="{highlight:selected == 1}" href="#"><i class="fab fa-delicious fa-sm"></i>Tableau de bord</a></li>
-          <li><a @click="selected = 5" :class="{highlight:selected == 5}" href="#"><i class="fas fa-dollar-sign fa-sm"></i>Transactions</a></li>
-          <li><a @click="selected = 2" :class="{highlight:selected == 2}" href="#"><i class="fas fa-wallet fa-sm"></i>Solde</a></li>
-          <li><a @click="selected = 3" :class="{highlight:selected == 3}" href="#"><i class="fas fa-calendar-alt fa-sm"></i>Planificateur</a></li>
-          <li><a @click="selected = 4" :class="{highlight:selected == 4}" href="#"><i class="fas fa-signal fa-sm"></i>Rapports</a></li>
+          <li><a href="#"><i class="fab fa-delicious fa-sm"></i>Tableau de bord</a></li>
+          <li><a href="#"><i class="fas fa-dollar-sign fa-sm"></i>Transactions</a></li>
+          <li><a href="#"><i class="fas fa-wallet fa-sm"></i>Solde</a></li>
+          <li><a href="#"><i class="fas fa-calendar-alt fa-sm"></i>Planificateur</a></li>
+          <li><a href="#"><i class="fas fa-signal fa-sm"></i>Rapports</a></li>
         </ul>
     </div>
 </template>
