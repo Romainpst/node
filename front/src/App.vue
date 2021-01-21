@@ -1,28 +1,55 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <b-navbar toggleable="md">
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <b-collapse is-nav id="nav_collapse">
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item toggle-class="white" href="#" @click.prevent="login" v-if="!activeUser">Login</b-nav-item>
+          <b-nav-item toggle-class="white" href="#" @click.prevent="logout" v-else>Logout</b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+    <router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  
+  export default{
+    name: 'app',
+    data () {
+      return {
+        activeUser: null,
+      }
+    },
+    async created () {
+      await this.refreshActiveUser()
+    },
+    watch: {
+      '$route': 'refreshActiveUser'
+    },
+    methods: {
+      login () {
+        this.$auth.loginRedirect()
+      },
+      async refreshActiveUser () {
+        this.activeUser = await this.$auth.getUser()
+      },
+      async logout () {
+        await this.$auth.logout()
+        await this.refreshActiveUser()
+        this.$router.push('/')
+      }
+    }
   }
-}
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(255,255,255, 0.5);
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    color: rgba(230,230,230, 0.5);
 }
 </style>
