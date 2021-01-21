@@ -1,14 +1,43 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const { promisify } = require('util')
+// Database imports
+const pgPool = require("./db/pgWrapper");
+const tokenDB = require("./db/tokenDB")(pgPool);
+const userDB = require("./db/userDB")(pgPool);
 
-const app = express()
-app.use(bodyParser.json())
+// OAuth imports
+const oAuthService = require("./auth/tokenService")(userDB, tokenDB);
+const oAuth2Server = require("node-oauth2-server");
 
-const startServer = async () => {
-  const port = process.env.SERVER_PORT || 3000
-  await promisify(app.listen).bind(app)(port)
-  console.log(`Listening on port ${port}`)
-}
+// Express
+const express = require("express");
+const app = express();
+app.oauth = oAuth2Server({
+    model: oAuthService,
+    grants: ["password"],
+    debug: true,
+});
 
-startServer()
+const testAPIService = require("./test/testAPIService.js");
+const testAPIRoutes = require("./test/testAPIRoutes.js")(
+    express.Router(),
+    app,
+    testAPIService
+);
+
+// Auth and routes
+const authenticator = require("./auth/authenticator")(userDB);
+const routes = require("./auth/routes")(
+    express.Router(),
+    app,
+    authenticator
+);
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(app.oauth.errorHandler());
+app.use("/auth", routes);
+app.use("/test", testAPIRoutes);
+
+const port = 3000;
+app.listen(port, () => {
+    console.log(`listening on port ${port}`);
+});
